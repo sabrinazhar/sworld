@@ -1,0 +1,468 @@
+body {
+    font-family: 'Hedvig Letters Serif', serif;
+    background-color: #B94366;
+}
+
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+}
+
+.font {
+    font-family: 'Playfair Display', serif;
+    color: #B94366;
+    font-size: 150%;
+}
+
+.change {
+    background-image: url("change.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+.change:hover {
+    background-image: url("change-hover.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.change-pwd {
+    color: white;
+    font-size: 125%;
+    font-family: 'Playfair Display', serif;
+}
+
+.change:focus {
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    outline: none;
+}
+
+.check-pwd {
+    color: white;
+    font-size: 100%;
+    font-family: 'Playfair Display', serif;
+}
+
+.pwd {
+    font-family: 'Playfair Display', serif;
+    color: #B94366;
+    font-size: 200%;
+}
+
+.card-text {
+    margin-bottom: 7%;
+}
+
+
+.form-control::placeholder {
+    color: grey;
+}
+
+.card-deck {
+    margin-top: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.navbar {
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    text-decoration-color: black;
+    margin-right: 15px;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 10px;
+}
+
+.navbar-nav li {
+    display: inline;
+}
+
+.navbar-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.navbar-nav a.nav-link {
+    color: black !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color:#5C2233;
+    font-family: 'Playfair Display', serif;
+}
+
+.dropdown-item:hover {
+    color:#5C2233;
+    font-weight: bolder;
+    background-color: transparent;
+    font-family: 'Playfair Display', serif;
+}
+
+.post {
+    margin-bottom: 20px;
+    background-color: #5C2233;
+    color: white;
+    padding: 5%;
+    border-radius: 5px;
+}
+
+.upload {
+    background-image: url("post.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.upload:hover {
+    background-image: url("post-hover.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.upload:focus {
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    outline: none;
+}
+
+.search {
+    background-image: url("search.png");
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.search:hover {
+    background-image: url("searched.png");
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.search:focus {
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    outline: none;
+}
+
+.unfollow, .follow:hover {
+    background-image: url("unfollow.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.unfollow:hover, .follow {
+    background-image: url("follow.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.mini-unfollow, .mini-follow:hover {
+    background-image: url("unfollow.png");
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.mini-unfollow:hover, .mini-follow {
+    background-image: url("follow.png");
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.username, .username:hover {
+    font-family: 'Playfair Display', serif;
+    color: #8b324d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.explore, .explore:hover {
+    font-family: 'Playfair Display', serif;
+    color: #8b324d;
+    font-weight: bold;
+    font-size: 150%;
+    text-decoration: none;
+}
+
+.follow-profile, .follow-profile:hover {
+    font-family: 'Playfair Display', serif;
+    color: #8b324d;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 150%;
+}
+
+.profile, .profile:hover {
+    font-family: 'Playfair Display', serif;
+    color: #8b324d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.middle {
+    text-align: center;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+figure {
+    text-align: center;
+}
+
+.like-text {
+    text-align: center;
+}
+
+.like {
+    background-image: url("like.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.likesnum {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.unlike {
+    background-image: url("unlike.png");
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.likesonlike {
+    color: #8b324d;
+}
+
+.likesonunlike {
+    color: white;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit, .edit:hover {
+    background-image: url("edit.png");
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.edit:focus {
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    outline: none;
+}
+
+.save {
+    background-image: url("save.png");
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.save:hover {
+    background-image: url("save-hover.png");
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+}
+
+.save:focus {
+    background-size: cover;
+    background-color: transparent;
+    background-blend-mode: darken;
+    outline: none;
+}
+
+.modal-content {
+    color: #8b324d;
+}
+
+.signup, .login {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.center {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-colour {
+    background-color: #8B324D;
+    color: white; 
+}
+
+.btn-colour:hover {
+    background-color: #8B324D;
+    color: black; 
+}
+
+.flash_message, .alert {
+    background-color: #5C2233; 
+    color: #fff; 
+    padding: 10px; 
+    border: none; 
+    margin-top: 10px; 
+    font-style: italic;
+}
+
+.signup a, .login a {
+    color: #5C2233; 
+}
+
+
+html.normal { 
+    font-size: 100%;
+}
+
+html.small { 
+    font-size: 50%; 
+}
+
+html.large { 
+    font-size: 150%; 
+}
+
+/* Footer styles */
+footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    background-color: #f8f9fa;
+}

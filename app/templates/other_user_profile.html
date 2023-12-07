@@ -1,0 +1,121 @@
+<!-- other_user_profile.html -->
+
+{% extends "base.html" %}
+
+{% block title %}{{ other_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+    <h2 class="mt-4"><b>{{ other_user.username }}'s Profile</b></h2>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <!-- Display users that the user follows with Unfollow button -->
+            <h3 class="cursor-pointer profile" onclick="toggleSection('following')">Following ({{ other_user.following.count() }})</h3>
+            <div id="following-section" style="display: none;">
+                <br>
+                <ul class="list-group">
+                    {% for following in other_user.following %}
+                        <li class="list-group-item">
+                            <a class="follow-profile" href="{% if current_user != following %}{{ url_for('other_user_profile', username=following.username) }}{% else %}{{ url_for('profile') }}{% endif %}">{{ following.username }}</a>
+                            {% if current_user != following %}
+                                <form method="post" action="{% if following in current_user.following %}{{ url_for('unfollow', username=following.username) }}{% else %}{{ url_for('follow', username=following.username) }}{% endif %}" style="display: inline;">
+                                    {{ search_form.csrf_token }}
+                                    <button type="submit" class="btn btn-sm {% if following in current_user.following %}unfollow{% else %}follow{% endif %} float-right">
+                                        {% if following in current_user.following %}{% else %}{% endif %}
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <br>
+            <!-- Display users that follow the other user -->
+            <h3 class="cursor-pointer profile" onclick="toggleSection('followers')">Followers ({{ other_user.followers.count() }})</h3>
+            <div id="followers-section" style="display: none;">
+                <br>
+                <ul class="list-group">
+                    {% for follower in other_user.followers %}
+                        <li class="list-group-item">
+                            <a class="follow-profile" href="{% if current_user != follower %}{{ url_for('other_user_profile', username=follower.username) }}{% else %}{{ url_for('profile') }}{% endif %}">{{ follower.username }}</a>
+                            {% if current_user != follower %}
+                                <form method="post" action="{% if follower in current_user.following %}{{ url_for('unfollow', username=follower.username) }}{% else %}{{ url_for('follow', username=follower.username) }}{% endif %}" style="display: inline;">
+                                    {{ search_form.csrf_token }}
+                                    <button type="submit" class="btn btn-sm {% if follower in current_user.following %}unfollow{% else %}follow{% endif %} float-right">
+                                        {% if follower in current_user.following %}{% else %}{% endif %}
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display other user's posts -->
+    <div class="mt-4">
+        <h3>Posts</h3>
+        <br>
+        {% for post in other_user.posts %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <figure>
+                            <img class="icon" src="{{ url_for('static', filename='username.png') }}" alt="Icon">
+                            <figcaption><p class="username">{{ post.user.username }}</p></figcaption>
+                        </figure>
+                    </h5>
+                    <p class="card-text post">{{ post.content }}</p>
+                    <br>
+                    <!-- Display the number of likes -->
+                    <div class="like-text">
+                        <button class="unlike">
+                            <p class="card-text like-count-profile pointer likesonunlike" data-post-id="{{ post.id }}" data-toggle="modal" data-target="#likesModal{{ post.id }}">
+                                {{ post.likes|length }}
+                            </p>
+                        </button>
+                        <p class="card-text like-count-profile likesonlike">
+                            likes
+                        </p>
+                    </div>
+
+                    <!-- Likes Modal -->
+                    <div class="modal fade" id="likesModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="likesModalLabel{{ post.id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title unlike" id="likesModalLabel{{ post.id }}"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-unstyled">
+                                        {% for like in post.likes %}
+                                            <li>
+                                                {% if like.user.username == current_user.username %}
+                                                    <a class="username" href="{{ url_for('profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                {% else %}
+                                                    <a class="username" href="{{ url_for('other_user_profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                {% endif %}
+                                            </li>
+                                            <br>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <p class="card-text"><small class="text-muted">{{ post.date_posted.strftime('%H:%M %d-%m-%Y') }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}

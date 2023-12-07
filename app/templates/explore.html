@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>EXPLORE</h2>
+  <br>
+  <form method="post" action="{{ url_for('explore') }}">
+    {{ search_form.csrf_token }}
+    {{ search_form.username(class="form-control", placeholder="Enter a username") }}
+    <br>
+    {{ search_form.submit(class="btn btn-primary mt-2 search") }}
+  </form>
+
+  {% if search_form.is_submitted() %}
+    <ul class="list-group mt-3">
+      {% for user in users %}
+        <li class="list-group-item">
+          {% if current_user != user %}
+            <a class="explore" href="{{ url_for('other_user_profile', username=user.username) }}">{{ user.username }}</a>
+            <form method="post" action="{% if user in current_user.following %}{{ url_for('unfollow', username=user.username) }}{% else %}{{ url_for('follow', username=user.username) }}{% endif %}" style="display: inline;">
+              {{ search_form.csrf_token }}
+              <button type="submit" class="btn btn-sm {% if user in current_user.following %}unfollow{% else %}follow{% endif %} float-right">
+                {% if user in current_user.following %}{% else %}{% endif %}
+              </button>
+            </form>
+          {% else %}
+          <a class="explore" href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

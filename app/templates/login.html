@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="center">
+        <div class="login">
+            <h1 class="mt-4"><b>LOGIN</b></h1>
+            <br>
+            <form method="POST" action="{{ url_for('login') }}" class="mt-3">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username(class="form-control form-control-lg", placeholder="Enter your username") }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {{ form.password(class="form-control form-control-lg", placeholder="Enter your password") }}
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="showPassword" onclick="togglePasswordLogin()">
+                    <label class="form-check-label" for="showPassword">Show Password</label>
+                </div>
+                <button type="submit" class="btn btn-colour btn-lg">Login</button>
+            </form>
+            <br>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash_message alert alert-info">
+                        {{ messages[0]}}<br>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        
+            <p class="mt-3">
+                Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

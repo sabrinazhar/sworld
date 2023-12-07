@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash_message alert alert-info">
+                {{ messages[0]}}<br>
+            </div>
+        {% endif %}
+    {% endwith %}
+    <h2 class="mt-4"><b>sworld is the world</b></h2>
+
+    <!-- Post Form -->
+    <form method="POST" action="{{ url_for('post_create') }}" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+            <textarea class="form-control" id="post_content" name="content" rows="3" placeholder="What's on your mind?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary upload"></button>
+    </form>
+
+    <!-- Display Posts -->
+    <div class="card-deck mt-4">
+        {% for post in posts %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if post.user != current_user %}
+                            <figure>
+                                <img class="icon" src="static/username.png" alt="Icon">
+                                <figcaption><a class="username" href="{{ url_for('other_user_profile', username=post.user.username) }}">{{ post.user.username }}</a></figcaption>
+                            </figure>
+                        {% else %}
+                            <figure>
+                                <img class="icon" src="static/username.png" alt="Icon">
+                                <figcaption><a class="username" href="{{ url_for('profile', username=post.user.username) }}">{{ post.user.username }}</a></figcaption>
+                            </figure>
+                            <!-- Button group for delete and edit buttons -->
+                            <div class="btn-group dropright" role="group" aria-label="Post actions">
+                                <button type="button" class="btn btn-secondary edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <!-- Edit post button -->
+                                    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="dropdown-item">EDIT</a>
+                                    <!-- Delete post button -->
+                                    <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}">
+                                        <button type="submit" class="dropdown-item">DELETE</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </h5>
+                    <p class="card-text post">{{ post.content }}</p>
+                    <br>
+                    {% if post.user != current_user %}
+                        <!-- Like button -->
+                        <form method="POST" action="{{ url_for('like_post', post_id=post.id) }}" class="like-form">
+                            {% if liked_posts[loop.index0] %}
+                                <div class="like-text">
+                                    <button type="button" class="unlike" data-post-id="{{ post.id }}" onclick="handleLikeButtonClick(this)">
+                                        <p class="card-text like-count-profile pointer likesonunlike" data-post-id="{{ post.id }}">
+                                            {{ post.likes|length }}
+                                        </p>
+                                    </button>
+                                    <p class="card-text like-count-profile pointer likesonlike" data-post-id="{{ post.id }}" data-toggle="modal" data-target="#likesModal{{ post.id }}">
+                                        likes
+                                    </p>
+                                </div>
+                            {% else %}
+                                <div class="like-text">
+                                    <button type="button" class="like" data-post-id="{{ post.id }}" onclick="handleLikeButtonClick(this)">
+                                        <p class="card-text like-count-profile pointer likesonlike" data-post-id="{{ post.id }}">
+                                            {{ post.likes|length }}
+                                        </p>
+                                    </button>
+                                    <p class="card-text like-count-profile pointer likesonlike" data-post-id="{{ post.id }}" data-toggle="modal" data-target="#likesModal{{ post.id }}">
+                                        likes
+                                    </p>
+                                </div>
+                            {% endif %}
+                        </form>
+                        <!-- Likes Modal -->
+                        <div class="modal fade" id="likesModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="likesModalLabel{{ post.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title unlike" id="likesModalLabel{{ post.id }}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-unstyled">
+                                            {% for like in post.likes %}
+                                                <li>
+                                                    {% if like.user.username == current_user.username %}
+                                                        <a class="username" href="{{ url_for('profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                    {% else %}
+                                                        <a class="username" href="{{ url_for('other_user_profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                    {% endif %}
+                                                </li>
+                                                <br>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Display the number of likes -->
+                        <div class="like-text">
+                            <button class="unlike">
+                                <p class="card-text like-count-profile pointer likesonunlike" data-post-id="{{ post.id }}" data-toggle="modal" data-target="#likesModal{{ post.id }}">
+                                    {{ post.likes|length }}
+                                </p>
+                            </button>
+                            <p class="card-text like-count-profile likesonlike">
+                                likes
+                            </p>
+                        </div>
+
+                        <!-- Likes Modal -->
+                        <div class="modal fade" id="likesModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="likesModalLabel{{ post.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title unlike" id="likesModalLabel{{ post.id }}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-unstyled">
+                                            {% for like in post.likes %}
+                                                <li>
+                                                    {% if like.user.username == current_user.username %}
+                                                        <a class="username" href="{{ url_for('profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                    {% else %}
+                                                        <a class="username" href="{{ url_for('other_user_profile', username=like.user.username) }}">{{ like.user.username }}</a>
+                                                        <!-- Follow/Unfollow button -->
+                                                        <form method="post" action="{% if like.user in current_user.following %}{{ url_for('unfollow', username=like.user.username) }}{% else %}{{ url_for('follow', username=like.user.username) }}{% endif %}" style="display: inline;">
+                                                            {{ search_form.csrf_token }}
+                                                            <button type="submit" class="btn btn-sm {% if like.user in current_user.following %}mini-unfollow{% else %}mini-follow{% endif %} float-right">
+                                                                {% if like.user in current_user.following %}{% else %}{% endif %}
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <br>
+                    <p class="card-text"><small class="text-muted">{{ post.date_posted.strftime('%H:%M %d-%m-%Y') }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
