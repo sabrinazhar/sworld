@@ -1,18 +1,19 @@
-# models.py
+" models.py file that contains all the databases"
 
 from datetime import datetime
 from app import db
 from flask_login import UserMixin
 
-# Define followers table (Many-to-Many Relationship)
+# Define followers table
+id_user = 'user.id'
 followers = db.Table('followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+    db.Column('follower_id', db.Integer, db.ForeignKey(id_user)),
+    db.Column('followed_id', db.Integer, db.ForeignKey(id_user))
 )
 
-# Define post_followers table (Many-to-Many Relationship)
+# Define post_followers table
 post_followers = db.Table('post_followers',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey(id_user)),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
 )
 
@@ -27,17 +28,17 @@ class User(db.Model, UserMixin):
     followers = db.relationship('User', secondary='followers',
                                primaryjoin=(followers.c.follower_id == id),
                                secondaryjoin=(followers.c.followed_id == id),
-                               backref=db.backref('following', lazy='dynamic'), lazy='dynamic')
+                               backref=db.backref(
+                                   'following', lazy='dynamic'),
+                                   lazy='dynamic')
 
     def get_id(self):
         return str(self.id)
 
     def is_active(self):
-        # You can customize this method based on your application's requirements
         return True
 
     def is_authenticated(self):
-        # You can customize this method based on your application's requirements
         return True
 
     def is_anonymous(self):
@@ -48,13 +49,15 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(id_user), nullable=False)
     user = db.relationship('User', backref=db.backref('posts', lazy=True))
 
     # Inside the Post class
     def has_user_liked(self, user):
-        return Like.query.filter_by(post_id=self.id, user_id=user.id).first() is not None
+        return Like.query.filter_by(post_id=self.id,
+                                    user_id=user.id).first() is not None
 
+# Define Like Model
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

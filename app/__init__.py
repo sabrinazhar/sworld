@@ -1,3 +1,5 @@
+" init.py that contains the variables to be initialised"
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
