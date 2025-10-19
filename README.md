@@ -4,7 +4,9 @@ A Flask-based **social networking web application** that allows users to sign up
 
 The system implements a fully functional backend with authentication, database integration, and responsive user interfaces using Flask templates and SQLAlchemy ORM.
 
-This project was a coursework I did for myy COMP2011 module in University of Leeds. 
+This project was a coursework I did for my COMP2011 module in University of Leeds. 
+
+🔗[Visit the deployed application here](https://sworld-ha9e.onrender.com)
 
 ---
 
