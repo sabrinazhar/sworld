@@ -6,7 +6,15 @@ The system implements a fully functional backend with authentication, database i
 
 This project was a coursework I did for my COMP2011 module in University of Leeds. 
 
-🔗[Visit the deployed application here](https://sworld-ha9e.onrender.com)
+---
+
+## 📸 Preview
+
+🔗 [Visit the deployed application here](https://sworld-ha9e.onrender.com)
+
+You can view screenshots, design walkthroughs, and detailed function explanations in the full report below:
+
+📄 [View Full Report](./Report.pdf)
 
 ---
 
@@ -116,11 +124,3 @@ Use `Ctrl + C` to stop the server.
 * **SQLite**
 * **HTML / CSS / Jinja2**
 * **JavaScript**
-
----
-
-## 📸 Preview
-
-You can view screenshots, design walkthroughs, and detailed function explanations in the full report below:
-
-📄 [View Full Report (Report.pdf)](./Report.pdf)
