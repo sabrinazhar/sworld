@@ -1,7 +1,10 @@
-# 🌐 Social World
+# 🌐 Sworld
 
 A Flask-based **social networking web application** that allows users to sign up, log in, create posts, follow other users, and explore shared content in a community-driven environment.  
+
 The system implements a fully functional backend with authentication, database integration, and responsive user interfaces using Flask templates and SQLAlchemy ORM.
+
+This project was a coursework I did for myy COMP2011 module in University of Leeds. 
 
 ---
 
@@ -117,4 +120,5 @@ Use `Ctrl + C` to stop the server.
 ## 📸 Preview
 
 You can view screenshots, design walkthroughs, and detailed function explanations in the full report below:
+
 📄 [View Full Report (Report.pdf)](./Report.pdf)
