@@ -37,7 +37,7 @@ You can view screenshots, design walkthroughs, and detailed function explanation
 
 📂 sworld/
 ├── app/
-│   ├── **init**.py          # Flask app initialization and configuration
+│   ├── init.py          # Flask app initialization and configuration
 │   ├── routes.py            # Application routes (views)
 │   ├── models.py            # SQLAlchemy models (User, Post, Follow, Like)
 │   ├── forms.py             # Flask-WTF forms for login, signup, and settings
